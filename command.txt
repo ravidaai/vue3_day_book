@@ -1,0 +1,91 @@
+npm init -y  
+npm install vue@next   
+npm install -D @vue/compiler-sfc
+npm install -g @vue/cli
+vue upgrade --next
+vue create pettycash
+
+#Cli Tools
+https://cli.vuejs.org/guide/creating-a-project.html
+
+#support
+https://router.vuejs.org/
+https://vuex.vuejs.org/
+https://github.com/vuejs/devtools#vue-devtools
+https://vue-loader.vuejs.org/#what-is-vue-loader
+https://github.com/vuejs/awesome-vue
+
+
+
+#####STEPS########
+npm install -g @vue/cli
+vue create vue3-tailwind
+vue add router
+
+
+npm install --save bootstrap
+    Next, add the Bootstrap CSS and JS components to the Vue project entrypoint (ie: src/main.js)...
+    import "bootstrap/dist/css/bootstrap.min.css"
+    import "bootstrap"
+
+
+
+
+
+#Using Font Awesome in Vue 3
+https://github.com/FortAwesome/vue-fontawesome
+
+
+
+
+#can be use as
+// createApp(App)
+//   .use(store)
+//   .use(router)
+//     .component("font-awesome-icon", FontAwesomeIcon)
+//   .mount("#app")
+
+
+############## TailWind CSS Configuration ##############
+npm install tailwindcss
+
+/* ADD: src/assets/css/style.css*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#Add on main.js
+import "./assets/css/style.css"
+npx tailwindcss init
+
+
+
+
+#Installing tailwind
+https://paulreaney.medium.com/install-tailwind-in-vue-3-project-fc4a6db10bf0
+npm install tailwindcss@latest postcss@latest autoprefixer@latest
+npx tailwindcss init --postcss
+
+
+
+
+#vue layout
+https://itnext.io/vue-tricks-smart-layouts-for-vuejs-5c61a472b69b
+
+
+#dynamic Title
+https://youtu.be/Pcrzy1f1fK4
+
+
+
+#Modal - Reusable
+https://codeburst.io/create-reusable-modals-using-vue-js-309eff9579bd
+
+#Failed to resolve loader: sass-loader
+#You may need to install it.
+
+npm install sass-loader -D
+npm install node-sass -D
+
+npm cache clean --force  
+npm cache verify  
