@@ -28,6 +28,9 @@ npm install --save bootstrap
     import "bootstrap/dist/css/bootstrap.min.css"
     import "bootstrap"
 
+#To work with Bootstrap    
+npm i @popperjs/core
+
 
 
 
@@ -79,6 +82,10 @@ https://youtu.be/Pcrzy1f1fK4
 
 
 #Modal - Reusable
+1.https://dev.to/tefoh/use-bootstrap-5-in-vue-correctly-2k2g
+
+
+2. https://www.youtube.com/watch?v=aJl-nLMN_GM
 https://codeburst.io/create-reusable-modals-using-vue-js-309eff9579bd
 
 #Failed to resolve loader: sass-loader
@@ -89,3 +96,11 @@ npm install node-sass -D
 
 npm cache clean --force  
 npm cache verify  
+
+#router
+<router-link :to={name:'home'}></router-link>
+
+
+#json server
+npm install -g json-server --save
+json-server --watch data/db.json

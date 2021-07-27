@@ -19,7 +19,7 @@
           <div class="modal-body">
             <form>
               <div class="form-group">
-                <label for="formGroupExampleInput text-align-left"
+                <label for="formGroupExampleInput"
                   >Company Name</label
                 >
                 <input

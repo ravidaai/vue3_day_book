@@ -31,7 +31,7 @@ const routes = [
     meta: { layout: UserLayout },
   },
   {
-    path: "/fiscal",
+    path: "/fiscal/:company_id",
     name: "Fiscal",
     component: () => import("../views/company/fiscal/index.vue"),
     meta: { layout: UserLayout },
@@ -48,10 +48,40 @@ const routes = [
     component: () => import("../views/Forgot_password.vue"),
     meta: { layout: DefaultLayout },
   },
+  {
+    path: "/example",
+    name: "example",
+    component: import("../views/example.vue"),
+    meta: { layout: DefaultLayout },
+  },
+  //redirect
+  {
+    path: "/all-jobs",
+    redirect: "/example",
+  },
+  //catch all 404
+  {
+    path: "/:catchAll(.*)",
+    name: "not_found",
+    component: import("../views/404.vue"),
+  },
+  {
+    path: "/jobs/:id",
+    name: "JobDetails",
+    component: import("../views/jobDetails.vue"),
+    props: true,
+    meta: { layout: DefaultLayout },
+  },
+  {
+    path: "/details/:id",
+    name: "PostDetails",
+    component: import("../components/details.vue"),
+    props: true,
+    meta: { layout: DefaultLayout },
+  },
 ];
 
 const router = createRouter({
-  // history: createWebHashHistory(),
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
