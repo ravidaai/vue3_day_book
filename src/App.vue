@@ -7,6 +7,29 @@
   </div>
 </template>
 
+<script>
+import EventBus from "./common/EventBus";
+
+export default {
+  computed: {
+
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    }
+  },
+  mounted() {
+    EventBus.on("logout", () => {
+      this.logOut();
+    });
+  },
+  beforeUnmount() {
+    EventBus.remove("logout");
+  }
+};
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -20,10 +20,28 @@
               <router-link to="/dashboard" class="nav-link active">Dashboard</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/company" class="nav-link active">My Company</router-link>
+              <router-link :to="{name: 'Company'}" class="nav-link active"> Company</router-link>
             </li>
+
+            <li class="nav-item">
+              <router-link :to="{name: 'Category'}" class="nav-link active"> Category</router-link>
+            </li>
+
+              <li class="nav-item">
+              <router-link :to="{name: 'Daybook'}" class="nav-link active"> Daybook</router-link>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link active" href="#">Change Password</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" @click.prevent="logOut">Logout</a>
+             
+            </li>
+
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="#">{{currentUser.data.user_name}}</a> -->
+              <a class="nav-link" href="#"></a>
             </li>
           </ul>
         </div>
@@ -39,6 +57,18 @@
 <script>
 export default {
   name: "UserLayout",
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push({name:"Login"});
+    }
+  }
 };
 </script>
 

@@ -2,15 +2,18 @@
   <div>
     <div class="row">
       <div class="col-md-4">
-        <h3 class="text-left">My Company lists</h3>
+<h3 class="text-left">Invoice Category</h3>
       </div>
-      <div class="col-md-4"></div>
       <div class="col-md-4">
-        <button type="button" class="btn btn-primary" @click="addCompany">
-          Add Company
-        </button>
+        
+      </div>
+      <div class="col-md-4">
+         <button type="button" class="btn btn-primary" @click="addCategory">
+      Add Category
+    </button>
       </div>
     </div>
+   
 
     <!-- Create / Edit-->
     <div class="modal fade" ref="exampleModal" tabindex="-1" aria-hidden="true">
@@ -28,35 +31,35 @@
             <div class="modal-body">
               <div class="form-floating">
                 <!-- Edit: {{editMode? company.data.company_name : 'test'}} -->
-
+                
                 <Field
                   type="text"
-                  name="company_name"
+                  name="category"
                   class="form-control"
-                  id="floatingAddCompany"
-                  placeholder="Add your company"
-                  v-model="company_name_model"
+                  id="floatingAddCategory"
+                  placeholder="Add category"
+                  v-model="category_model"
                 />
 
                 <label
                   :for="
                     editMode == true
-                      ? 'floatingEditCompany'
-                      : 'floatingAddCompany'
+                      ? 'floatingEditCategory'
+                      : 'floatingAddCategory'
                   "
                   v-if="!editMode"
-                  >Add your company</label
+                  >Add category</label
                 >
                 <label
                   :for="
                     editMode == true
-                      ? 'floatingEditCompany'
-                      : 'floatingAddCompany'
+                      ? 'floatingEditCategory'
+                      : 'floatingAddCategory'
                   "
                   v-if="editMode"
-                  >Edit your company</label
+                  >Edit category</label
                 >
-                <ErrorMessage name="company" class="error-feedback" />
+                <ErrorMessage name="category" class="error-feedback" />
               </div>
 
               <div class="form-group mt-2 mb-2">
@@ -102,34 +105,32 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Company Name</th>
+          <th>Category</th>
 
           <th>Created</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(company, index) in companies.results" :key="index">
+        <tr v-for="(data, index) in categories" :key="index">
           <td>{{ index + 1 }}</td>
           <td>
-            {{ company.company_name }}
-            <!-- <router-link :to="{name:'InvoiceList', params: { company_id: company._id }}">
-              
-            </router-link> -->
-          </td>
-          <td>{{ company.created_at }}</td>
+            {{ data.category }}
+            
+            </td>
+          <td>{{ data.created_at }}</td>
           <td>
             <button
               class="btn btn-danger mr-2 ml-2"
-              @click="handleDelete(company._id)"
+              @click="handleDelete(data._id)"
               title="Delete"
             >
               Del
             </button>
-            &nbsp;
+&nbsp;
             <button
               class="btn btn-success mr-2 ml-2"
-              @click="handleShow(company._id)"
+              @click="handleShow(data._id)"
               title="Show"
             >
               Edit
@@ -137,27 +138,13 @@
           </td>
         </tr>
       </tbody>
+      
     </table>
-
-    <div>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" @click="previousPage">Previous</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#" @click="nextPage">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-
-//Pagination: https://softwareontheroad.com/pagination-in-nodejs-mongo/
 /**
  * 
  * Alert,
@@ -176,9 +163,10 @@
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import swal from "sweetalert";
-import axios from "axios";
+import axios from 'axios';
 // import $ from 'jquery';
 // import  'datatables.net-dt'
+
 
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
@@ -203,7 +191,7 @@ export default defineComponent({
 
 import { Modal } from "bootstrap";
 export default {
-  name: "companyIndex",
+  name: "categoryIndex",
   components: { Form, Field, ErrorMessage },
   // data: () => ({
   //   modal: null,
@@ -211,7 +199,7 @@ export default {
   // }),
   data() {
     const schema = yup.object().shape({
-      company_name: yup.string().required("Company is required!"),
+      category: yup.string().required("Category is required!"),
     });
 
     return {
@@ -221,55 +209,32 @@ export default {
       schema,
       successful: false,
       editMode: false,
-      company_name_model: "",
-      limit: 3,
-      page: 0,
+      category_model:''
     };
   },
 
   computed: {
     ...mapGetters({
-      companies: "company/index",
-      company: "company/show",
+      categories: "category/index",
+      category: "category/show",
     }),
   },
   methods: {
-    ...mapActions({
-      companyIndex: "company/index",
-    }),
-
-    async nextPage() {
-      if (this.companies.next) {
-        await this.companyIndex({
-          limit: this.companies.next.limit,
-          page: this.companies.next.page,
-        });
-      }
-    },
-    async previousPage() {
-      if (this.companies.previous) {
-        await this.companyIndex({
-          limit: this.companies.previous.limit,
-          page: this.companies.previous.page,
-        });
-      }
-    },
+    ...mapActions({ categoryIndex: "category/index" }),
 
     handleSubmit(req) {
       this.loading = true;
-      this.message = "";
+this.message=""
       //ON EDIT
       if (this.editMode) {
         this.$store
-          .dispatch("company/update", {
-            id: this.company.data._id,
-            company: req,
-          })
+          .dispatch('category/update', { id: this.category.data._id, category: req })
           .then(
             (response) => {
               this.loading = false;
               this.successful = true;
               this.message = response.data.msg;
+              
             },
             (error) => {
               this.successful = false;
@@ -279,9 +244,9 @@ export default {
           );
       }
 
-      //ON ADD
+//ON ADD
       if (!this.editMode) {
-        this.$store.dispatch("company/create", req).then(
+        this.$store.dispatch('category/create', req).then(
           (response) => {
             //console.log(data)
             this.loading = false;
@@ -298,7 +263,7 @@ export default {
     },
 
     handleDelete(req) {
-      this.$store.dispatch("company/delete", req).then(
+      this.$store.dispatch("category/delete", req).then(
         (response) => {
           //console.log(response);
         },
@@ -309,11 +274,11 @@ export default {
     },
 
     handleShow(req) {
-      this.message = "";
-      this.company_name_model = "";
-      this.$store.dispatch("company/show", req).then(
+      this.message=""
+      this.category_model=""
+      this.$store.dispatch("category/show", req).then(
         (response) => {
-          this.company_name_model = this.company.data.company_name;
+          this.category_model = this.category.data.category
           this.editMode = true;
           this.modal.show();
         },
@@ -323,33 +288,20 @@ export default {
       );
     },
 
-    addCompany() {
-      this.message = "";
+    addCategory() {
+      this.message=""
       this.editMode = false;
       this.modal.show();
-      this.company_name_model = "";
+      this.category_model=""
     },
   },
   mounted() {
+    
     this.modal = new Modal(this.$refs.exampleModal);
-    this.companyIndex({ page: this.page, limit: this.limit });
-    // axios.get('http://localhost/Connitylimited/genesis-wordpress/wp-json/api/v1/classroom/chapter_details/introduction-to-bitcoin').then((response)=>{
-    //   console.log(response);
-    // })
+    this.categoryIndex()
+
   },
-  //   created: function () {
-  //   axios.interceptors.response.use(undefined, function (err) {
-  //     return new Promise(function (resolve, reject) {
-  //       if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-  //       // if you ever get an unauthorized, logout the user
-  //         //this.$store.dispatch(AUTH_LOGOUT)
-  //       // you can also redirect to /login if needed !
-  //       console.log(err.status)
-  //       }
-  //       throw err;
-  //     });
-  //   });
-  // }
+
 };
 </script>
 

@@ -109,7 +109,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(company, index) in companies.results" :key="index">
+        <tr v-for="(company, index) in companies" :key="index">
           <td>{{ index + 1 }}</td>
           <td>
             {{ company.company_name }}
@@ -222,8 +222,8 @@ export default {
       successful: false,
       editMode: false,
       company_name_model: "",
-      limit: 3,
-      page: 0,
+      limit: 10,
+      skip: 0,
     };
   },
 
@@ -239,19 +239,26 @@ export default {
     }),
 
     async nextPage() {
-      if (this.companies.next) {
+      if ((await this.companies.length) > 0) {
+        this.skip += this.limit; // For the next page you just increment 'skip' for the page size 'limit'
         await this.companyIndex({
-          limit: this.companies.next.limit,
-          page: this.companies.next.page,
+          limit: this.limit,
+          skip: this.skip,
         });
       }
+
+      if ((await this.companies.length) == 0) {
+        await this.companyIndex({
+          limit: this.limit,
+          skip: (this.skip -= this.limit),
+        });
+      }
+
     },
     async previousPage() {
-      if (this.companies.previous) {
-        await this.companyIndex({
-          limit: this.companies.previous.limit,
-          page: this.companies.previous.page,
-        });
+      if (this.skip > 0) {
+        this.skip -= this.limit; // For the previous page, you just increment 'skip' for the page size 'limit'
+        await this.companyIndex({ limit: this.limit, skip: this.skip });
       }
     },
 
@@ -332,7 +339,7 @@ export default {
   },
   mounted() {
     this.modal = new Modal(this.$refs.exampleModal);
-    this.companyIndex({ page: this.page, limit: this.limit });
+    this.companyIndex({ limit: this.limit, skip: this.skip });
     // axios.get('http://localhost/Connitylimited/genesis-wordpress/wp-json/api/v1/classroom/chapter_details/introduction-to-bitcoin').then((response)=>{
     //   console.log(response);
     // })
