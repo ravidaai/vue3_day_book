@@ -27,6 +27,9 @@ pnpm-debug.log*
 *.sw?
 
 
+command.txt
+
+
 # Compiled Java class files
 *.class
 

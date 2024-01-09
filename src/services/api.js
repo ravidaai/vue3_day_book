@@ -16,6 +16,7 @@ const companyApi = {
   show: "company",
   delete: "company",
   update: "company",
+  dropdown: "company/dropdown",
 };
 
 const categoryApi = {
@@ -24,6 +25,7 @@ const categoryApi = {
   show: "category",
   delete: "category",
   update: "category",
+  
 };
 
 const daybookApi = {

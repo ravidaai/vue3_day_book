@@ -3,6 +3,7 @@ import authHeader from "./auth-header";
 import { companyApi } from "./api";
 
 class CompanyService {
+  
   index(payload) {
     // const params = new URLSearchParams({
     //   skip: payload.skip,
@@ -47,6 +48,11 @@ class CompanyService {
       headers: authHeader(),
     });
   }
+
+  dropdown() {
+    return axios.get(companyApi.dropdown, { headers: authHeader() });
+  }
+
 }
 
 export default new CompanyService();

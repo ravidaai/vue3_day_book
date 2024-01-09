@@ -19,6 +19,7 @@
     "sweetalert": "^2.1.2",
     "vee-validate": "^4.4.7",
     "vue": "^3.0.4",
+    "vue-next-select": "^2.9.0",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0",
     "yup": "^0.32.9"

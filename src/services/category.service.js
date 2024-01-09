@@ -25,6 +25,8 @@ class CategoryService {
   delete(id) {
     return axios.delete(categoryApi.delete+'/'+id, { headers: authHeader() });
   }
+
+
 }
 
 export default new CategoryService();

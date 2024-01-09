@@ -5,10 +5,23 @@ export const company = {
   state() {
     return {
       companies: [],
+      dropdown:[],
       company: {},
     };
   },
   actions: {
+    dropdown({ commit }) {
+      return CompanyService.dropdown().then(
+        (response) => {
+          commit("dropdown", response);
+          return Promise.resolve(response);
+        },
+        (error) => {
+          commit("indexFailure");
+          return Promise.reject(error);
+        }
+      );
+    },
     index({ commit }, payload) {
       return new Promise(function(resolve, reject) {
         return CompanyService.index(payload).then(
@@ -90,6 +103,9 @@ export const company = {
     index(state, companies) {
         state.companies = companies.data.data;
     },
+    dropdown(state, dropdown) {
+      state.dropdown = dropdown.data.data;
+  },
     indexFailure(state) {
       state.companies = [];
     },
@@ -105,6 +121,9 @@ export const company = {
     },
   },
   getters: {
+    dropdown: (state) => {
+      return state.dropdown;
+    },
     index: (state) => {
       return state.companies;
     },

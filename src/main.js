@@ -6,10 +6,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import emitter from 'mitt'
+//import VueNextSelect from 'vue-next-select'
 import setupInterceptors from './services/setupInterceptors';
+//import 'vue-next-select/dist/index.min.css'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 
+//https://vuejsexamples.com/a-complete-selecting-solution-for-vue-js-3-x/
 //https://css-tricks.com/stay-dry-using-axios-for-api-requests/
 // axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.baseURL = API.baseUrl
@@ -21,11 +24,14 @@ axios.defaults.headers.post['Accept'] = 'application/json'  // default
 // }
 
 const MyApp = createApp(App);
+//MyApp.component('vue-select', VueNextSelect)
 MyApp.config.globalProperties.emitter = emitter;
 MyApp.use(store);
 MyApp.use(router);
 MyApp.mount('#app');
 setupInterceptors(store);
+
+
 
 //or
 // createApp(App).use(store).use(router).mount('#app')
